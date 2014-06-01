@@ -17,7 +17,7 @@ Have fresh mongoDB server running on "mongodb://localhost:27017/infectwit".
 
 Start server
 
-    npm server
+    node server
 
 Visit browser
 
