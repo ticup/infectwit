@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title> AI -- Infectwit </title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="infectwit.css" rel="stylesheet">
+    <link href="lib/tipsy.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Infectwit</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="#users-tab" data-toggle="tab">Users</a></li>
+              <li><a href="#user-tab" data-toggle="tab">User</a></li>
+              <li><a href="#graph-tab" data-toggle="tab">Graph</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      
+      <!-- Scraped Users -->
+      <div class="tab-pane active" id="users-tab">
+         <div class="container">
+            <div class="starter-template">
+              <h1>Users</h1>
+              <p class="lead">Scraped users so far with colored average sentiment (green = positive, red = negative).
+              <br> Click on the user to get more stats.</p>
+              
+              <form class="form-inline get-users-form" role="form">
+                <div class="form-group">
+                  <label for="tweetsCollection">Collection</label>
+                  <select id="tweetsCollection" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                  <label for="limitUsers">User Limit</label>
+                  <input type="number" class="form-control" id="limitUsers" placeholder="Enter Number Of Users" value='100'>
+                </div>
+                <div class="form-group">
+                  <label for="limitUsers">Minimum Tweets</label>
+                  <input type="number" class="form-control" id="filterTweets" placeholder="Enter Number Of Tweets" value='1'>
+                </div>
+                <button type="submit" class="btn btn-default">Get Users</button>
+              </form>
+
+
+
+              <div id='users-heading' class="panel-group">
+                <div class="list-group-item row">
+                  <div class="col-md-4"> Screen Name (number of tweets) </div>
+                  <div class="col-md-4"> AFINN Sentiment </div>
+                  <div class="col-md-4"> CLIPS sentiment </div>
+                </div>
+              </div>
+              <div id='users' class="panel-group">
+              </div>
+              <div id="tweets-graph" class="row">
+                <div id="tweets-graph1" class="col-md-6"></div>
+                <div id="tweets-graph2" class="col-md-6"></div>
+              </div>
+            </div>
+
+            <hr>
+            <footer>
+              <p>Tim Coppieters 2014</p>
+            </footer>
+         </div> <!-- /container -->
+      </div>
+      
+
+
+      <!-- User -->
+      <div class="tab-pane" id="user-tab">
+        <div class="container">
+          <div class="starter-template">
+            <h1>Analyze User Sentiment</h1>
+            <p class="lead">Scrape a specific user and analyse its sentiment history.<br>
+                            The users scraped here will also appear under the "scraped" collection under the "users" tab.</p>
+            <form id="get-user-form" class="form-inline" role="form">
+              <div class="form-group">
+                <label for="scrapeScreenName">Screen name to scrape</label>
+                <input type="string" class="form-control" id="scrapeScreenName" placeholder="Enter a screen name">
+              </div>
+              <button type="submit" class="btn btn-default">Get User</button>
+            </form>
+            <h3 id="scraping-user-information"></h3>
+            <div id="scraped-user">
+            <h2></h2>
+              <table class='table'>
+                <tr><td>screen_name</td><td id='scraped-user-screen-name'></td></tr>
+                <tr><td>name</td><td id='scraped-user-name'></td></tr>
+                <tr><td>id</td><td id='scraped-user-id'></td></tr>
+                <tr><td>description</td><td id='scraped-user-description'></td></tr>
+                <tr><td>since</td><td id='scraped-user-since'></td></tr>
+                <tr><td>#followers</td><td id='scraped-user-followers'></td></tr>
+                <tr><td>#friends</td><td id='scraped-user-friends'></td></tr>
+                <tr><td>#tweets</td><td id='scraped-user-tweets-count'></td></tr>
+                <tr><td>location</td><td id='scraped-user-location'></td></tr>
+                <tr><td>time_zone</td><td id='scraped-user-time-zone'></td></tr>
+                <tr><td>average afinn sentiment</td><td id='scraped-user-afinn-sentiment'></td></tr>
+                <tr><td>average clips sentiment</td><td id='scraped-user-clips-sentiment'></td></tr>
+              </table>
+              <div id="scraped-user-tweets-graph" class="row">
+                <div id="scraped-user-tweets-graph1" class="col-md-6"></div>
+                <div id="scraped-user-tweets-graph2" class="col-md-6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Network graph -->
+      <div class="tab-pane" id="graph-tab">
+        <div class="container">
+          <div class="start-template">
+            <h1>User Graph</h1>
+              <p class="lead">Make network graph for collection of scraped users.
+              <br> Colored according to the average sentiment of their tweets, sized according to the number of tweets.
+              <br> (Hover over node for name visibility) </p>
+              <form class="form-inline make-graph-form" role="form">
+                <div class="form-group">
+                  <label for="tweetsCollection2">Collection</label>
+                  <select id="tweetsCollection2" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                  <label for="graphAlgorithm">Sentiment Algorithm</label>
+                  <select id="graphAlgorithm" class="form-control">
+                    <option value="afinn">Afinn</option>
+                    <option value="clips">Clips</option>
+                  </select>
+                </div>
+              <button type="submit" class="btn btn-default">Make Graph</button>
+              </form>
+            <div id="graph-container">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div> <!-- end of tabs -->
+
+   
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="lib/tooltipsy.min.js"></script>
+
+
+    <!-- create graph functions -->
+    <script src="network-graph.js"></script>
+    <script src="tweets-graph.js"></script>
+
+    <!-- main script -->
+    <script src="infectwit.js"></script>
+    
+
+
+  </body>
+</html>

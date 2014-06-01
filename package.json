@@ -1,0 +1,31 @@
+{
+  "name": "infectwit",
+  "description": "Research whether twitter users influence each other in their tweeting and visualize tweeting sentiment history.",
+  "author": "Tim Coppieters <coppieters.tim@gmail.com>",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/ticup/infectwit.git"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "twit": "1.1.15",
+    "twitter-scrape": "0.0.2",
+    "sentiment": "1.0.0-alpha",
+    "emotional": "0.0.3",
+    "mongodb": "*",
+    "express": "*"
+  },
+  "devDependencies": {
+  },
+  "optionalDependencies": {
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha",
+    "make-test": "node_modules/.bin/browserify"
+  }
+}
